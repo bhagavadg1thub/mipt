@@ -98,7 +98,7 @@ int main() {
 
         auto end = std::chrono::steady_clock::now(); // записали в end время после вызова функции
 
-        auto time_span = std::chrono::duration_cast<std::chrono::milliseconds>((end - begin) / 10); // среднее время работы функции = (end-begin)/10 
+        auto time_span = std::chrono::duration_cast<std::chrono::milliseconds>((end - begin) / 20); // среднее время работы функции = (end-begin)/20 
 
         std::cout << "\n";
         std::cout << time_span.count() << std::endl;
