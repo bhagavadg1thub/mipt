@@ -86,7 +86,7 @@ int main() {
      
         auto begin = std::chrono::steady_clock::now(); // записали в begin время до вызова функции
 
-        for (unsigned cnt = 10; cnt != 0; --cnt) { // запускааем 10 раз
+        for (unsigned cnt = 20; cnt != 0; --cnt) { // запускааем по 20 раз для каждого size (тобишь для каждого N)
             unsigned int* ptr_array = generate_random_array(rng, dstr, size);
             my_sort(ptr_array, size);
 
