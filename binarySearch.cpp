@@ -47,7 +47,7 @@ void delete_array(unsigned int*& ptr_array) {  //не очень понятно 
 }
 
 
-int linearSearch(unsigned int* arr, size_t size, unsigned int target) { // Линейный поиск
+int linearSearch(unsigned int* arr, size_t size, int target) { // Линейный поиск
     for (size_t i = 0; i < size; ++i) {
         if (arr[i] == target) {
             return i; // Возвращаем индекс
