@@ -79,9 +79,9 @@ int binarySearch(unsigned int* arr, size_t size, int target) { // Бинарны
 int main() {
     unsigned seed = 1001; //число из головы чтобы генератор работал
     std::default_random_engine rng(seed); //вызов рандомайзера
-    std::uniform_int_distribution<unsigned> dstr(0, 100);
+    std::uniform_int_distribution<unsigned> dstr(0, 1000);
 
-    for (unsigned int size = 1; size < 1000000; size *= 4) {
+    for (unsigned int size = 100; size < 1000000; size += 33330) {
 
         unsigned int* ptr_array = generate_random_array(rng, dstr, size);
         my_sort(ptr_array, size);
