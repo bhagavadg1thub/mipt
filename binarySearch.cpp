@@ -14,7 +14,7 @@ void print_array(unsigned int*& ptr_array, unsigned int size) { // печать 
 
 
 void swap_value(unsigned int& lha, unsigned int& rha) { // поменять местами значения под ссылками
-    unsigned int t = lha; 
+    unsigned int t = lha;
     lha = rha;
     rha = t;
 }
@@ -47,7 +47,7 @@ void delete_array(unsigned int*& ptr_array) {  //не очень понятно 
 }
 
 
-int linearSearch(unsigned int* arr, size_t size, int target) { // Линейный поиск
+int linearSearch(unsigned int* arr, size_t size, unsigned int target) { // Линейный поиск
     for (size_t i = 0; i < size; ++i) {
         if (arr[i] == target) {
             return i; // Возвращаем индекс
@@ -78,28 +78,25 @@ int binarySearch(unsigned int* arr, size_t size, int target) { // Бинарны
 
 int main() {
     unsigned seed = 1001; //число из головы чтобы генератор работал
-    int range = 1000; // настройка диапазона, которым будут забиты рандомные массивы
     std::default_random_engine rng(seed); //вызов рандомайзера
-    std::uniform_int_distribution<unsigned> dstr(0, range);
+    std::uniform_int_distribution<unsigned> dstr(0, 100);
 
-    for (unsigned int size = 100; size < 1000000; size += 33330) { 
-     
+    for (unsigned int size = 1; size < 1000000; size *= 4) {
+
+        unsigned int* ptr_array = generate_random_array(rng, dstr, size);
+        my_sort(ptr_array, size);
+
         auto begin = std::chrono::steady_clock::now(); // записали в begin время до вызова функции
 
-        for (unsigned cnt = 20; cnt != 0; --cnt) { // запускааем по 20 раз для каждого size (тобишь для каждого N)
-            unsigned int* ptr_array = generate_random_array(rng, dstr, size);
-            my_sort(ptr_array, size);
-
-            int target = -1; // выбираем значение, которого заведомо нет в массиве, так как каждый массив забит числами [0, 1000]
-
-            binarySearch(ptr_array, size, target);
-            delete_array(ptr_array);
+        for (unsigned cnt = 10000; cnt != 0; --cnt) { // запускааем по 20 раз для каждого size (тобишь для каждого N)
+            binarySearch(ptr_array, size, -1);
         }
 
         auto end = std::chrono::steady_clock::now(); // записали в end время после вызова функции
 
-        auto time_span = std::chrono::duration_cast<std::chrono::milliseconds>((end - begin) / 20); // среднее время работы функции = (end-begin)/20 
-
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>((end - begin)*100); // среднее время работы функции *10e6
+        
+        delete_array(ptr_array);
         std::cout << "\n";
         std::cout << time_span.count() << std::endl;
 
